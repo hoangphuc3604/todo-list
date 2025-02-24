@@ -12,11 +12,6 @@
 /bin/
 /build/
 
-# Go modules
-/go.mod
-/go.sum
-/vendor/
-
 # Compiled object files
 *.o
 *.a
