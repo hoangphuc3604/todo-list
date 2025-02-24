@@ -14,6 +14,8 @@ func main() {
 	{
 		task.POST("", gin_todo.CreateTask(store))
 		task.GET("", gin_todo.ListTodo(store))
+		task.PUT("/:id", gin_todo.UpdateTask(store))
+		task.DELETE("/:id", gin_todo.DeleteTask(store))
 	}
 
 	r.Run(":8080")

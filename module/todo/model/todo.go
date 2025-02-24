@@ -12,7 +12,7 @@ const (
 )
 
 type TodoItem struct {
-	ID          int    `json:"id" gorm:"primaryKey"`
+	ID          int    `json:"id"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Completed   bool   `json:"completed"`
@@ -20,8 +20,8 @@ type TodoItem struct {
 
 
 type TodoItemCreation struct {
-	Title       string `json:"title" gorm:"column:title" validate:"required,min=3,max=100"`
-	Description string `json:"description" gorm:"column:description" validate:"required,min=3,max=100"`
+	Title       string `json:"title" validate:"required,min=3,max=100"`
+	Description string `json:"description" validate:"required,min=3,max=100"`
 }
 
 
@@ -30,7 +30,7 @@ func (t *TodoItemCreation) Validate() error {
 }
 
 type TodoItemUpdate struct {
-	Completed *bool `json:"completed" gorm:"column:completed" validate:"required"`
+	Completed *bool `json:"completed" validate:"required"`
 }
 
 func (t *TodoItemUpdate) Validate() error {

@@ -2,6 +2,7 @@ package gin_todo
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/hoangphuc3604/todo-list/module/todo/biz"
@@ -10,23 +11,29 @@ import (
 	"github.com/hoangphuc3604/todo-list/util"
 )
 
-func CreateTask(store *storage.TodoStorage) func(*gin.Context) {
+func UpdateTask(store *storage.TodoStorage) func(*gin.Context) {
 	return func(ctx *gin.Context) {
-		var data model.TodoItemCreation
+		var data model.TodoItemUpdate
 
 		if err := ctx.ShouldBind(&data); err != nil {
 			ctx.JSON(http.StatusBadRequest, util.ErrorResponse(util.ErrBindingRequest(err)))
 			return
 		}
 
-		business := biz.NewCreateTodoBiz(store)
+		id, err := strconv.Atoi(ctx.Param("id"))
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, util.ErrorResponse(util.ErrorInvalidRequest(err)))
+			return
+		}
 
-		id, err := business.CreateNewTodo(ctx, &data)
+		business := biz.NewUpdateTodoBiz(store)
+
+		err = business.UpdateTodoByID(ctx, &data, id)
 		if err != nil {
 			ctx.JSON(http.StatusBadRequest, util.ErrorResponse(err))
 			return
 		}
 
-		ctx.JSON(http.StatusOK, util.CreateTodoResponse(id))
+		ctx.JSON(http.StatusOK, util.UpdateTodoResponse(id))
 	}
 }
