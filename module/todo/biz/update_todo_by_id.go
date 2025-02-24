@@ -25,10 +25,5 @@ func (biz *updateTodoBiz) UpdateTodoByID(ctx context.Context, todo *model.TodoIt
 		return util.ErrorInvalidRequest(err)
 	}
 
-	err = biz.storage.UpdateTodo(ctx, todo, id)
-	if err != nil {
-		return util.ErrorCanNotUpdateEntity(model.TableNameTodo, err)
-	}
-
-	return nil
+	return biz.storage.UpdateTodo(ctx, todo, id)
 }

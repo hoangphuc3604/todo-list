@@ -2,9 +2,6 @@ package biz
 
 import (
 	"context"
-
-	"github.com/hoangphuc3604/todo-list/module/todo/model"
-	"github.com/hoangphuc3604/todo-list/util"
 )
 
 type DeleteTodoStorage interface {
@@ -20,9 +17,5 @@ func NewDeleteTodoBiz(storage DeleteTodoStorage) *deleteTodoBiz {
 }
 
 func (biz *deleteTodoBiz) DeleteTodoById(ctx context.Context, id int) error {
-	if err := biz.storage.DeleteTodo(ctx, id); err != nil {
-		return util.ErrorCanNotDeleteEntity(model.TableNameTodo, err)
-	}
-
-	return nil
+	return biz.storage.DeleteTodo(ctx, id)
 }

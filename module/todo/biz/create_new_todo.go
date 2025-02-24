@@ -25,10 +25,5 @@ func (biz *createTodoBiz) CreateNewTodo(ctx context.Context, todo *model.TodoIte
 		return 0, util.ErrorInvalidRequest(err)
 	}
 
-	id, err := biz.storage.CreateTodo(ctx, todo)
-	if err != nil {
-		return id, util.ErrorCanNotCreateEntity(model.TableNameTodo, err)
-	}
-
-	return id, nil
+	return biz.storage.CreateTodo(ctx, todo)
 }

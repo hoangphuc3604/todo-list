@@ -100,9 +100,11 @@ func ErrorCanNotDeleteEntity(entityName string, err error) *AppErr {
 }
 
 func ErrorNotFound(entityName string, id int) *AppErr {
-	return NewCustomError(
-		fmt.Errorf("%s with id %d not found", strings.ToLower(entityName), id),
-		fmt.Sprintf("%s with id %d not found", strings.ToLower(entityName), id),
+	return NewFullErrorResponse(
+		http.StatusNotFound,
+		fmt.Errorf("%s with id %d not found", entityName, id),
+		fmt.Sprintf("%s with id %d not found", entityName, id),
+		fmt.Sprintf("%s with id %d not found", entityName, id),
 		fmt.Sprintf("NOT_FOUND_%s", strings.ToUpper(entityName)),
 	)
 }
