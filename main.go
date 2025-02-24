@@ -13,6 +13,7 @@ func main() {
 	task := r.Group("/tasks")
 	{
 		task.POST("", gin_todo.CreateTask(store))
+		task.GET("", gin_todo.ListTodo(store))
 	}
 
 	r.Run(":8080")
