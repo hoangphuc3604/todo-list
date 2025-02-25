@@ -12,7 +12,7 @@ func main() {
 	store := storage.NewTodoStorage()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost:3000"},
+		AllowOrigins: []string{"http://localhost:3000", "https://todo-list-ui-c5e6.onrender.com"},
 		AllowMethods: []string{"GET", "POST", "DELETE", "PUT", "OPTIONS"},
 		AllowHeaders: []string{"Origin", "Content-Type", "Authorization"},
 	}))
