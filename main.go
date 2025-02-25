@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/hoangphuc3604/todo-list/module/todo/storage"
 	gin_todo "github.com/hoangphuc3604/todo-list/module/todo/transport/gin"
@@ -9,6 +10,12 @@ import (
 func main() {
 	r := gin.Default()
 	store := storage.NewTodoStorage()
+
+	r.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"http://localhost:3000"},
+		AllowMethods: []string{"GET", "POST", "DELETE", "PUT", "OPTIONS"},
+		AllowHeaders: []string{"Origin", "Content-Type", "Authorization"},
+	}))
 
 	task := r.Group("/tasks")
 	{
